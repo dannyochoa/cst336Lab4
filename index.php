@@ -1,8 +1,38 @@
 <?php
     include 'api/pixabayAPI.php';
+    
+    if(isset($_GET['layout']))
+    {
+        
+        if($_GET['layout'] == "vertical"){
+            $_GET['layout'] = 'vertical';
+        }
+        else{
+            $_GET['layout'] = 'horizontal';
+        }
+        
+        //     <style>
+        //         .carousel{
+        //             height:1000px;
+        //         }
+        //         .carousel-inner img{
+        //             height:1000px !important;
+                    
+        //         }
+        //     </style>
+ 
+            
+        // }
+        // echo $_GET['layout'];
+    }
+    else
+    {
+        $_GET['layout'] = 'horizontal';
+    }
+    
     if(isset($_GET['keyword']) && $_GET['keyword'] != ""){
         // echo "you searched for: " . $_GET['keyword'] . "</br>";
-        $imageURLs = getImageURLs($_GET['keyword']);
+        $imageURLs = getImageURLs($_GET['keyword'],$_GET['layout']);
         $backgroundImage = $imageURLs[array_rand($imageURLs)];
 
     }
@@ -14,24 +44,6 @@
     }
     else{
     $backgroundImage = "./img/sea.jpg";
-    }
-    if(isset($_GET['layout']))
-    {
-        if($_GET['layout'] == "vertical"){
-            ?>
-            <style>
-                .carousel{
-                    height:1000px;
-                }
-                .carousel-inner img{
-                    height:1000px !important;
-                    
-                }
-            </style>
-            <?php
-            
-        }
-        // echo $_GET['layout'];
     }
 ?>
 <!DOCTYPE html>
